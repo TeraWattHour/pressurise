@@ -1,5 +1,7 @@
 # Pressurise
 
+**Pressurise is the Go fullstack framework with no unnecessary bloat.**
+
 This repository contains the client for interfacing with generated Pressurise handlers.
 The CLI is available [here](https://github.com/terawatthour/pressurise-cli).
 
@@ -23,7 +25,7 @@ Every `.html` file in the `app/` directory is mapped to its generated route - th
 - Build the routes `pressurise-cli build .`
 - Use the generated handlers
 
-```
+```go
 func main() {
     app := NewPressurise()
     app.RegisterPages(pressHandlers)
