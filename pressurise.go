@@ -1,6 +1,7 @@
 package pressurise
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -10,6 +11,7 @@ type PressuriseApp interface {
 	RegisterPages(handlers map[string]func() http.HandlerFunc)
 	Route(path string, handler http.HandlerFunc)
 	Run(address string) error
+	GetRouter() *chi.Mux
 }
 
 type pressuriseApp struct {
@@ -31,7 +33,13 @@ func (a *pressuriseApp) Route(pattern string, handler http.HandlerFunc) {
 
 // runs the app on the selected address
 func (a *pressuriseApp) Run(address string) error {
+	fmt.Printf("Pressurise listening on %s\n", address)
 	return http.ListenAndServe(address, a.Router)
+}
+
+// returns *chi.Mux instance used by pressurise
+func (a *pressuriseApp) GetRouter() *chi.Mux {
+	return a.Router
 }
 
 // creates a new pressurise app
